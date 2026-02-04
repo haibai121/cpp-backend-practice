@@ -1,0 +1,2 @@
+/home/cppdev/projects/cpp-backend-practice/week1/practice/build/CMakeFiles/edit_cache.dir
+/home/cppdev/projects/cpp-backend-practice/week1/practice/build/CMakeFiles/rebuild_cache.dir
