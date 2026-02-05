@@ -1,0 +1,3 @@
+/home/cppdev/projects/cpp-backend-practice/week1/day3/student_manager/build/CMakeFiles/student_manager.dir
+/home/cppdev/projects/cpp-backend-practice/week1/day3/student_manager/build/CMakeFiles/edit_cache.dir
+/home/cppdev/projects/cpp-backend-practice/week1/day3/student_manager/build/CMakeFiles/rebuild_cache.dir

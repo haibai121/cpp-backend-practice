@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/student_manager.dir/main.cpp.o -o student_manager 
