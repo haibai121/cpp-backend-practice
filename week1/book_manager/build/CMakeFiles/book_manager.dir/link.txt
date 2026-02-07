@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/book_manager.dir/main.cpp.o -o book_manager 
