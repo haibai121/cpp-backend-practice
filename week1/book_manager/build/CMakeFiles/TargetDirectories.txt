@@ -1,3 +1,0 @@
-/home/cppdev/projects/cpp-backend-practice/week1/book_manager/build/CMakeFiles/book_manager.dir
-/home/cppdev/projects/cpp-backend-practice/week1/book_manager/build/CMakeFiles/edit_cache.dir
-/home/cppdev/projects/cpp-backend-practice/week1/book_manager/build/CMakeFiles/rebuild_cache.dir
