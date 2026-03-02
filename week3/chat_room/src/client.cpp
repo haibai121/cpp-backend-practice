@@ -5,21 +5,22 @@
 #include<arpa/inet.h>
 #include<netinet/in.h>
 #include<unistd.h>
+#include<atomic>
 
 #define BUFFER_SIZE 1024
 #define PORT 9090
 
-// ====== 【新增】接收消息的线程函数 ======
-// 原问题：你只发一次就退出，不能持续聊天
+std::atomic<bool> client_running{true};
+// ====== 接收消息的线程函数 ======
 void receiveMessages(int sock_fd) {
     char buffer[BUFFER_SIZE];
-    while (true) {
+    while (client_running) {
         int bytes = recv(sock_fd, buffer, BUFFER_SIZE - 1, 0);
         if (bytes > 0) {
             buffer[bytes] = '\0';
             std::cout << "\n[收到] " << buffer << std::endl;
             std::cout << "请输入消息(quit退出): "; // 提示用户继续输入
-        } else {
+        }else {
             std::cout << "\n服务器断开连接" << std::endl;
             break;
         }
@@ -52,8 +53,7 @@ int main(){
     }
     std::cout << "连接到服务器" << std::endl;
 
-    // ❌ 你原来的代码只调用了一次 send_message 就退出了！
-    // ✅ 现在：启动接收线程 + 主线程发消息
+    // 启动接收线程 + 主线程发消息
 
     std::thread recv_thread(receiveMessages, sock_fd); // 启动接收线程
 
@@ -62,9 +62,11 @@ int main(){
     while (true) {
         std::getline(std::cin, message);
         if (message == "quit") {
+            client_running = false;
+            shutdown(sock_fd, SHUT_RDWR);
             break;
         }
-        // 👇 原来 send 用了 BUFFER_SIZE，但实际只发 message.length()
+        // 原来 send 用了 BUFFER_SIZE，但实际只发 message.length()
         if (send(sock_fd, message.c_str(), message.length(), 0) < 0) {
             std::cerr << "发送失败" << std::endl;
             break;
