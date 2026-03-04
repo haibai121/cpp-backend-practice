@@ -135,7 +135,6 @@ int main(){
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
 
-    //这里强制类型转换有问题，为什么转换为sockaddr类型的指针而不是什么定义的sockaddr_in类型的指针?
     if(bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0){
         std::cerr << "绑定失败" << std::endl;
         close(server_fd);
