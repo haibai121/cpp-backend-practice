@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+cmake_minimum_required(VERSION 3.10)
 
 project(chat_room_v2
     VERSION 1.0.0
@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Threads REQUIRED)
 
-add_executable(server server.cpp)
-add_executable(client client.cpp)
+add_executable(server src/server.cpp)
+add_executable(client src/client.cpp)
 
 target_link_libraries(server PRIVATE Threads::Threads)
 target_link_libraries(client PRIVATE Threads::Threads)

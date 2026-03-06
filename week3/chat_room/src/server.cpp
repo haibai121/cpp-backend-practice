@@ -146,6 +146,7 @@ int main(){
     if (setsockopt(server_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0) {
         std::cerr << "设置超时失败" << std::endl;
     }
+    
     if(listen(server_fd, MAX_CLIENT) < 0){
         std::cerr << "监听失败" << std::endl;
         close(server_fd);
