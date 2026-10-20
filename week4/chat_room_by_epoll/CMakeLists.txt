@@ -1,23 +1,34 @@
-# week4/time_server/CMakeLists.txt
-cmake_minimum_required(VERSION 3.10)
-project(ChatRoomServer)
+cmake_minimum_required(VERSION 3.16)
+project(chat_room_by_epoll LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# 收集所有源文件
-file(GLOB SOURCES "src/*.cpp")
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
 
-# 创建可执行文件
-add_executable(server ${SOURCES})
+add_compile_options(-Wall -Wextra -Wpedantic)
 
-# 设置头文件目录
-target_include_directories(server PRIVATE ${PROJECT_SOURCE_DIR}/include)
-
-# 设置输出目录
-set_target_properties(server PROPERTIES 
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+file(GLOB_RECURSE SRCS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/base/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/net/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/server/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/protocol/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/session/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/business/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/storage/*.cpp
 )
 
-# 如果使用CMake，在CMakeLists.txt中：
-set(CMAKE_BUILD_TYPE Debug)  # 添加这一行
+add_executable(chat_server
+  ${SRCS}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+)
+
+target_include_directories(chat_server PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_compile_definitions(chat_server PRIVATE _GNU_SOURCE)
